@@ -42,7 +42,8 @@ export class SingleArtDepartmentComponent implements OnInit {
   ngOnInit(): void {
     this.singleDepartmentService.getArtObjects(this.department.departmentId)
       .subscribe((artObjectIds: GetArtObjectIdsResponse) => {
-        this.artObjectIds = artObjectIds.objectIDs.slice(0,10);
+        this.artObjectIds = artObjectIds.objectIDs.slice(0,100); 
+        //TODO: dataset is too large. slice items for simplicity 
       })
   }
 
