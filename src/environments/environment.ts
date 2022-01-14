@@ -1,9 +1,23 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
 
+import { ApiServices } from "src/shared/services.model";
+
+// The list of file replacements can be found in `angular.json`.
+const DOMAIN = 'collectionapi.metmuseum.org';
+const GATEWAY_URL = `https://${DOMAIN}/public/collection`;
+
+const services: ApiServices = {
+  getDepartments: {
+      url: `${GATEWAY_URL}/v1/departments`,
+  },
+  getArtObjects: {
+    url: `${GATEWAY_URL}/v1/objects`,
+  },
+}
 export const environment = {
-  production: false
+  production: false,
+  services: services
 };
 
 /*
