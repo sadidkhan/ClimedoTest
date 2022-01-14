@@ -25,10 +25,10 @@ export class ArtObjectService {
       }));
   }
 
-  processList(response: any): Array<BasicArtObject>{
-    let objectList = response.map((item:any) => {
-      return new BasicArtObject(item);
-    });
-    return objectList;
-  }
+  // processList(response: any): Array<BasicArtObject>{
+  //   let objectList = response.map((item:any) => {
+  //     return new BasicArtObject(item);
+  //   });
+  //   return objectList;
+  // }
 }

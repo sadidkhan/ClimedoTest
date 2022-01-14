@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import {FormsModule} from '@angular/forms';
-import { ArtObjectDetailsComponent } from './art-departments/single-art-department/art-object-details/art-object-details.component';
+import { ArtObjectModalComponent } from './art-departments/single-art-department/art-object-modal/art-object-modal.component';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { ArtObjectDetailsComponent } from './art-departments/single-art-departme
     ArtDepartmentsComponent,
     SingleArtDepartmentComponent,
     ArtObjectComponent,
-    ArtObjectDetailsComponent
+    ArtObjectModalComponent
   ],
   imports: [
     BrowserModule,
