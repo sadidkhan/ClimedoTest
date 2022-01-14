@@ -48,8 +48,10 @@ export class SingleArtDepartmentComponent implements OnInit {
         //TODO: dataset is too large. slice items for simplicity 
       });
 
+    //TODO: search i calling multiple times, architechture design should rethink
     this.appService.searchQueryStateChanged.pipe(
         filter((q) => q != null),
+        tap(()=> this.clearProductList()),
         mergeMap((query: any) => this.singleDepartmentService.search(query))
     ).subscribe((artObjectIds: GetArtObjectIdsResponse) => {
         if(artObjectIds.objectIDs.length > 100){
@@ -63,8 +65,11 @@ export class SingleArtDepartmentComponent implements OnInit {
 
   insertToList(artObject: any): void {
     this.products.push(artObject);
-    console.log(this.products);
     this.products = [...this.products];
+  }
+
+  clearProductList(){
+    this.products = [];
   }
 
   openModal(artObject: BasicArtObject){

@@ -17,7 +17,6 @@ export class ArtObjectComponent implements OnInit {
     if(this.artObjectd){
       this.artObjectService.getArtObjects(this.artObjectd)
       .subscribe((response: any) => {
-        console.log(response);
         this.addArtObjectToDepartmentArtList(response);
       })
     }
