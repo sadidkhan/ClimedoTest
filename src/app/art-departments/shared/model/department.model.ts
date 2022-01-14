@@ -1,6 +1,6 @@
 export interface Department{
     departmentId: number;
-    displayName: number;
+    displayName: string;
 }
 
 export interface GetDepartmentResponse{
