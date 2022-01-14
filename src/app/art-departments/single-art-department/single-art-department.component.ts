@@ -1,7 +1,10 @@
+import { BasicArtObject } from './art-object/model/artObject.model';
 import { GetArtObjectIdsResponse } from './model/getObjectIdsResponse.model';
 import { SingleArtDepartmentService } from './single-art-department.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Department } from '../shared/model/department.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ArtObjectModalComponent } from './art-object-modal/art-object-modal.component';
 
 @Component({
   selector: 'app-single-art-department',
@@ -15,7 +18,7 @@ export class SingleArtDepartmentComponent implements OnInit {
   artObjectIds: Array<number> = [];
   products: any;
   responsiveOptions: any;
-  constructor(private singleDepartmentService: SingleArtDepartmentService) {
+  constructor(private singleDepartmentService: SingleArtDepartmentService, private modalService: NgbModal) {
     this.products = [];
     this.responsiveOptions = [
       {
@@ -49,4 +52,8 @@ export class SingleArtDepartmentComponent implements OnInit {
     this.products = [...this.products];
   }
 
+  openModal(artObject: BasicArtObject){
+    const modalRef = this.modalService.open(ArtObjectModalComponent);
+    modalRef.componentInstance.artObject = artObject;
+  }
 }
