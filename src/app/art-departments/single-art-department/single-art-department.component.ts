@@ -1,3 +1,4 @@
+import { AppService } from './../../shared/app.service';
 import { BasicArtObject } from './art-object/model/artObject.model';
 import { GetArtObjectIdsResponse } from './model/getObjectIdsResponse.model';
 import { SingleArtDepartmentService } from './single-art-department.service';
@@ -5,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Department } from '../shared/model/department.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ArtObjectModalComponent } from './art-object-modal/art-object-modal.component';
+import { distinct, distinctUntilChanged, filter, mergeMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-single-art-department',
@@ -18,7 +20,7 @@ export class SingleArtDepartmentComponent implements OnInit {
   artObjectIds: Array<number> = [];
   products: any;
   responsiveOptions: any;
-  constructor(private singleDepartmentService: SingleArtDepartmentService, private modalService: NgbModal) {
+  constructor(private singleDepartmentService: SingleArtDepartmentService, private modalService: NgbModal, private appService: AppService) {
     this.products = [];
     this.responsiveOptions = [
       {
@@ -39,12 +41,27 @@ export class SingleArtDepartmentComponent implements OnInit {
     ];
   }
 
+  searchQuery = null;
   ngOnInit(): void {
     this.singleDepartmentService.getArtObjects(this.department.departmentId)
       .subscribe((artObjectIds: GetArtObjectIdsResponse) => {
         this.artObjectIds = artObjectIds.objectIDs.slice(0,100); 
         //TODO: dataset is too large. slice items for simplicity 
-      })
+      });
+
+    this.appService.searchQueryStateChanged.pipe(
+        filter((q) => q != null && q != this.searchQuery),
+        tap(q => this.searchQuery = q),
+        distinct(),
+        mergeMap((query: any) => this.singleDepartmentService.search(query))
+    ).subscribe((artObjectIds: GetArtObjectIdsResponse) => {
+        if(artObjectIds.objectIDs.length > 100){
+            this.artObjectIds = artObjectIds.objectIDs.slice(0,100); 
+        }
+        else{
+            this.artObjectIds = artObjectIds.objectIDs;
+        }
+    });
   }
 
   insertToList(artObject: any): void {
@@ -57,4 +74,7 @@ export class SingleArtDepartmentComponent implements OnInit {
     const modalRef = this.modalService.open(ArtObjectModalComponent);
     modalRef.componentInstance.artObject = artObject;
   }
+
+  
+
 }

@@ -24,4 +24,16 @@ export class SingleArtDepartmentService {
         return throwError(() => httpErrorResponse);
       }));
   }
+
+  search(q: string): Observable<GetArtObjectIdsResponse> {
+    let params = new HttpParams().append('q', q);
+    return this.http.get(environment.services.search.url, {params})
+      .pipe(map(response => {
+        return (<any>response).data ? (<any>response).data : (<any>response);
+      })
+      , catchError((httpErrorResponse: HttpErrorResponse) => {
+        this.log.error(httpErrorResponse);
+        return throwError(() => httpErrorResponse);
+      }));
+  }
 }

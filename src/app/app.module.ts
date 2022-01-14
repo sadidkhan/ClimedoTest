@@ -14,6 +14,7 @@ import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import {FormsModule} from '@angular/forms';
 import { ArtObjectModalComponent } from './art-departments/single-art-department/art-object-modal/art-object-modal.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ArtObjectModalComponent } from './art-departments/single-art-department
     CarouselModule,
     ButtonModule,
     ToastModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,6 +14,9 @@ const services: ApiServices = {
   getArtObjects: {
     url: `${GATEWAY_URL}/v1/objects`,
   },
+  search:{
+    url: `${GATEWAY_URL}/v1/search`
+  }
 }
 export const environment = {
   production: false,

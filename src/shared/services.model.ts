@@ -5,4 +5,5 @@ export interface SingleApiService {
 export interface ApiServices {
     getDepartments: SingleApiService;
     getArtObjects: SingleApiService;
+    search: SingleApiService;
 }
