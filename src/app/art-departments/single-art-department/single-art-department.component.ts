@@ -41,7 +41,6 @@ export class SingleArtDepartmentComponent implements OnInit {
     ];
   }
 
-  searchQuery = null;
   ngOnInit(): void {
     this.singleDepartmentService.getArtObjects(this.department.departmentId)
       .subscribe((artObjectIds: GetArtObjectIdsResponse) => {
@@ -50,9 +49,7 @@ export class SingleArtDepartmentComponent implements OnInit {
       });
 
     this.appService.searchQueryStateChanged.pipe(
-        filter((q) => q != null && q != this.searchQuery),
-        tap(q => this.searchQuery = q),
-        distinct(),
+        filter((q) => q != null),
         mergeMap((query: any) => this.singleDepartmentService.search(query))
     ).subscribe((artObjectIds: GetArtObjectIdsResponse) => {
         if(artObjectIds.objectIDs.length > 100){
